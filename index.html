@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Maison Dorée — Private Parisian luxury real estate advisory. Rare addresses, quiet expertise, cinematic living.">
+  <title>Maison Dorée | Luxury Parisian Real Estate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="anav" id="anav" aria-label="Main navigation">
+    <div class="anav__logo">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+    </div>
+    <div class="anav__links">
+      <a href="#" class="anav__link">Home</a>
+      <a href="#about" class="anav__link">About</a>
+      <a href="#residences" class="anav__link">Residences</a>
+      <a href="#services" class="anav__link">Services</a>
+      <a href="#contact" class="anav__link">Contact</a>
+    </div>
+    <div class="anav__menu-icon" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <button class="mobile-menu__close" id="mobile-menu-close" aria-label="Close menu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <nav class="mobile-menu__nav">
+      <a href="#about" class="mobile-menu__link">About</a>
+      <a href="#residences" class="mobile-menu__link">Residences</a>
+      <a href="#services" class="mobile-menu__link">Services</a>
+      <a href="#testimonials" class="mobile-menu__link">Clients</a>
+      <a href="#contact" class="mobile-menu__link">Contact</a>
+      <a href="#contact" class="mobile-menu__cta">Private Consultation</a>
+    </nav>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <canvas id="hero-canvas" class="hero__canvas"></canvas>
+    <div class="hero__overlay"></div>
+    <div class="hero__overlay-bottom" id="hero-overlay-bottom"></div>
+    <div class="hero__content">
+      <p class="hero__eyebrow reveal-hero">Paris &middot; Private Real Estate</p>
+      <h1 class="hero__title reveal-hero">Find Your<br>Parisian <em>Chapter</em></h1>
+      <p class="hero__sub reveal-hero">Rare addresses. Quiet expertise. A life curated, not sold.</p>
+      <div class="hero__actions reveal-hero">
+        <a href="#residences" class="btn btn--primary">Explore Residences</a>
+        <a href="#contact" class="btn btn--outline">Book a Consultation</a>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <span>Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="philosophy" id="philosophy">
+    <div class="philosophy__inner">
+      <h2 class="philosophy__text">
+        This isn't just about property.<br>
+        <span class="philosophy__muted">It's about arrival. Discretion. Belonging to a city that reveals itself slowly.</span>
+      </h2>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about__inner">
+      <div class="about__label">Why Maison Dor&eacute;e</div>
+      <div class="about__statement">
+        <h2>Your life's changing. Don't just find an address&nbsp;&mdash; find what Paris becomes next. <span class="about__muted">We help you move with clarity, discretion, and the right advisor by your side.</span></h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- ZOOM PARALLAX GALLERY -->
+  <section class="zp-container" id="gallery">
+    <div class="zp-sticky">
+
+      <div class="zp-item" data-zp-index="0">
+        <div class="zp-inner">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1280&q=80" alt="Parisian luxury interior">
+        </div>
+      </div>
+
+      <div class="zp-item" data-zp-index="1">
+        <div class="zp-inner">
+          <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1280&q=80" alt="Paris cityscape">
+        </div>
+      </div>
+
+      <div class="zp-item" data-zp-index="2">
+        <div class="zp-inner">
+          <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&q=80" alt="Parisian loft">
+        </div>
+      </div>
+
+      <div class="zp-item" data-zp-index="3">
+        <div class="zp-inner">
+          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1280&q=80" alt="Luxury villa exterior">
+        </div>
+      </div>
+
+      <div class="zp-item" data-zp-index="4">
+        <div class="zp-inner">
+          <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=80" alt="Luxury kitchen">
+        </div>
+      </div>
+
+      <div class="zp-item" data-zp-index="5">
+        <div class="zp-inner">
+          <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1280&q=80" alt="Living room interior">
+        </div>
+      </div>
+
+      <div class="zp-item" data-zp-index="6">
+        <div class="zp-inner">
+          <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1280&q=80" alt="Modern residence exterior">
+        </div>
+      </div>
+
+      <div class="zp-caption" id="zp-caption">
+        <p><em>A residence is never just a place.</em></p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FLOW STORY SCROLL -->
+  <div class="flow-art" id="story">
+
+    <div data-flow-section>
+      <div class="flow-inner" style="background: var(--cream); color: var(--charcoal);">
+        <p class="flow-label">01 &mdash; Define the Life</p>
+        <div class="flow-hr"></div>
+        <div>
+          <h2 class="flow-title">Find<br>Your<br><em>Chapter.</em></h2>
+        </div>
+        <div class="flow-hr"></div>
+        <p class="flow-body">We begin with how you want to live, not just where. Your aspirations shape every recommendation we make.</p>
+      </div>
+    </div>
+
+    <div data-flow-section>
+      <div class="flow-inner" style="background: var(--charcoal); color: var(--cream);">
+        <p class="flow-label">02 &mdash; Curate the Address</p>
+        <div class="flow-hr flow-hr--light"></div>
+        <div>
+          <h2 class="flow-title" style="color: var(--cream);">Curate.<br>Counsel.<br>Close.</h2>
+        </div>
+        <div class="flow-hr flow-hr--light"></div>
+        <p class="flow-body" style="color: rgba(255,255,255,.6);">Every property is filtered through lifestyle, architecture, and discretion. No noise &mdash; only signal.</p>
+        <div class="flow-hr flow-hr--light"></div>
+        <div class="flow-grid">
+          <div class="flow-grid-item">
+            <p class="flow-grid-title" style="color: var(--gold);">Private Consultation</p>
+            <p class="flow-grid-text" style="color: rgba(255,255,255,.5);">We match you with an advisor who listens first. Your vision guides every step.</p>
+          </div>
+          <div class="flow-grid-item">
+            <p class="flow-grid-title" style="color: var(--gold);">Curated Selection</p>
+            <p class="flow-grid-text" style="color: rgba(255,255,255,.5);">Only properties that align with your life, not just your budget.</p>
+          </div>
+          <div class="flow-grid-item">
+            <p class="flow-grid-title" style="color: var(--gold);">Seamless Acquisition</p>
+            <p class="flow-grid-text" style="color: rgba(255,255,255,.5);">Negotiation, paperwork, handover &mdash; handled with quiet precision.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div data-flow-section>
+      <div class="flow-inner" style="background: var(--champagne); color: var(--charcoal);">
+        <p class="flow-label">03 &mdash; Move With Confidence</p>
+        <div class="flow-hr flow-hr--dark"></div>
+        <div>
+          <h2 class="flow-title">Keys<br>In<br>Hand.</h2>
+        </div>
+        <div class="flow-hr flow-hr--dark"></div>
+        <p class="flow-body">From first viewing to final signature. We handle every detail quietly, so you can focus on what matters: imagining your life in your new Parisian home.</p>
+        <div class="flow-hr flow-hr--dark"></div>
+        <p class="flow-body flow-body--right">Your life is changing. Let&rsquo;s find the address that changes with it.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FEATURED RESIDENCES -->
+  <section class="residences" id="residences">
+    <div class="residences__header">
+      <p class="label">Portfolio</p>
+      <h2 class="residences__title">Featured Residences</h2>
+    </div>
+    <div class="residences__list">
+
+      <article class="res-row">
+        <div class="res-row__text">
+          <p class="res-card__location">8&egrave;me Arrondissement</p>
+          <h3 class="res-card__name">Avenue Montaigne Penthouse</h3>
+          <p class="res-card__meta">4 Beds &middot; 3 Baths &middot; 280m&sup2;</p>
+          <div class="res-card__footer">
+            <span class="res-card__price">&euro;4,200,000</span>
+            <a href="#contact" class="res-card__link">Inquire &rarr;</a>
+          </div>
+        </div>
+        <div class="res-row__img">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80" alt="Avenue Montaigne Penthouse">
+          <span class="res-card__tag">For Sale</span>
+        </div>
+      </article>
+
+      <article class="res-row res-row--reverse">
+        <div class="res-row__text">
+          <p class="res-card__location">7&egrave;me Arrondissement</p>
+          <h3 class="res-card__name">Eiffel View Residence</h3>
+          <p class="res-card__meta">5 Beds &middot; 4 Baths &middot; 340m&sup2;</p>
+          <div class="res-card__footer">
+            <span class="res-card__price">&euro;6,800,000</span>
+            <a href="#contact" class="res-card__link">Inquire &rarr;</a>
+          </div>
+        </div>
+        <div class="res-row__img">
+          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80" alt="Eiffel View Residence">
+          <span class="res-card__tag res-card__tag--gold">Exclusive</span>
+        </div>
+      </article>
+
+      <article class="res-row">
+        <div class="res-row__text">
+          <p class="res-card__location">16&egrave;me Arrondissement</p>
+          <h3 class="res-card__name">Passy Garden Estate</h3>
+          <p class="res-card__meta">6 Beds &middot; 5 Baths &middot; 520m&sup2;</p>
+          <div class="res-card__footer">
+            <span class="res-card__price">&euro;9,500,000</span>
+            <a href="#contact" class="res-card__link">Inquire &rarr;</a>
+          </div>
+        </div>
+        <div class="res-row__img">
+          <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1200&q=80" alt="Passy Garden Estate">
+          <span class="res-card__tag">New Listing</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services__inner">
+      <div class="services__left">
+        <h2 class="services__heading">Real Estate,<br><span class="services__heading--muted">Refined.</span></h2>
+        <a href="#contact" class="btn btn--dark">Start Your Search &rarr;</a>
+      </div>
+      <div class="services__right">
+        <p class="services__label">Steps:</p>
+        <div class="services__steps">
+          <div class="services__step">
+            <span class="services__num">01</span>
+            <div>
+              <h3 class="services__step-title">Private Consultation.</h3>
+              <p class="services__step-desc">We match you with an advisor who listens first.</p>
+            </div>
+          </div>
+          <div class="services__step">
+            <span class="services__num">02</span>
+            <div>
+              <h3 class="services__step-title">Curated Selection.</h3>
+              <p class="services__step-desc">Only properties that align with your life, not just your budget.</p>
+            </div>
+          </div>
+          <div class="services__step">
+            <span class="services__num">03</span>
+            <div>
+              <h3 class="services__step-title">Seamless Acquisition.</h3>
+              <p class="services__step-desc">Negotiation, paperwork, handover &mdash; handled with quiet precision.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="testimonials__inner">
+      <p class="label">Client Words</p>
+      <div class="carousel" id="carousel">
+        <div class="carousel__track" id="carousel-track">
+          <div class="carousel__slide">
+            <blockquote class="carousel__quote">&ldquo;Maison Dor&eacute;e found us our dream apartment on &Icirc;le Saint-Louis in just three weeks. Their discretion and expertise are unmatched in Paris.&rdquo;</blockquote>
+            <div class="carousel__author">
+              <div class="carousel__avatar">AM</div>
+              <div><p class="carousel__name">Alexandre Moreau</p><p class="carousel__role">CEO, Paris</p></div>
+            </div>
+          </div>
+          <div class="carousel__slide">
+            <blockquote class="carousel__quote">&ldquo;A truly white-glove experience from first viewing to signing. They understood exactly what we were looking for &mdash; before we did.&rdquo;</blockquote>
+            <div class="carousel__author">
+              <div class="carousel__avatar">SB</div>
+              <div><p class="carousel__name">Sophie Beaumont</p><p class="carousel__role">Art Curator, Lyon</p></div>
+            </div>
+          </div>
+          <div class="carousel__slide">
+            <blockquote class="carousel__quote">&ldquo;Remarkable professionalism. The team handled every detail of our Haussmann acquisition with grace and total confidence.&rdquo;</blockquote>
+            <div class="carousel__author">
+              <div class="carousel__avatar">JL</div>
+              <div><p class="carousel__name">Jean-Paul Laurent</p><p class="carousel__role">Architect, Bordeaux</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel__nav">
+          <button class="carousel__btn" id="carousel-prev" aria-label="Previous">&larr;</button>
+          <div class="carousel__dots" id="carousel-dots">
+            <span class="carousel__dot active"></span>
+            <span class="carousel__dot"></span>
+            <span class="carousel__dot"></span>
+          </div>
+          <button class="carousel__btn" id="carousel-next" aria-label="Next">&rarr;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="cta">
+    <div class="cta__inner">
+      <h2 class="cta__title">Begin Your Parisian Story</h2>
+      <p class="cta__sub">Private consultations available seven days a week.</p>
+      <a href="#contact" class="btn btn--primary btn--lg">Book a Private Viewing</a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact__inner">
+      <div class="contact__info">
+        <p class="label">Get in Touch</p>
+        <h2 class="contact__title">Begin Your Search</h2>
+        <p class="contact__text">Whether buying, selling, or exploring &mdash; our team offers confidential, personal consultations tailored to your life.</p>
+        <address class="contact__details">
+          <div class="contact__detail">
+            <span class="contact__detail-label">Address</span>
+            <span>42 Avenue des Champs-&Eacute;lys&eacute;es, Paris 75008</span>
+          </div>
+          <div class="contact__detail">
+            <span class="contact__detail-label">Phone</span>
+            <span>+33 1 42 00 00 00</span>
+          </div>
+          <div class="contact__detail">
+            <span class="contact__detail-label">Email</span>
+            <span>contact@maisondoree.fr</span>
+          </div>
+        </address>
+      </div>
+      <div class="contact__form-wrap">
+        <form class="contact__form" id="contact-form">
+          <div class="contact__row">
+            <input type="text" placeholder="Name" required>
+            <input type="email" placeholder="Email" required>
+          </div>
+          <input type="text" placeholder="Property Interest">
+          <textarea rows="4" placeholder="Message" required></textarea>
+          <button type="submit" class="btn btn--primary btn--full">Send Message</button>
+          <p class="contact__success" id="form-success">Message Sent &check;</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="footer">
+    <div class="footer__main">
+      <div class="footer__brand-col">
+        <a href="#" class="footer__logo">Maison <span class="footer__logo-accent">Dor&eacute;e</span></a>
+        <p class="footer__desc">Luxury real estate in the heart of Paris since 2006. Curated residences for the discerning few.</p>
+        <div class="footer__seals">
+          <div class="footer__seal">Est. 2006</div>
+          <div class="footer__seal">Paris</div>
+          <div class="footer__seal">Certified</div>
+        </div>
+      </div>
+      <div class="footer__nav-cols">
+        <ul class="footer__col">
+          <li class="footer__col-title">Navigate</li>
+          <li class="footer__link-item"><a href="#about">About</a><span class="footer__link-arrow">&#8250;</span></li>
+          <li class="footer__link-item"><a href="#residences">Residences</a><span class="footer__link-arrow">&#8250;</span></li>
+          <li class="footer__link-item"><a href="#services">Services</a><span class="footer__link-arrow">&#8250;</span></li>
+          <li class="footer__link-item"><a href="#contact">Contact</a><span class="footer__link-arrow">&#8250;</span></li>
+        </ul>
+        <ul class="footer__col">
+          <li class="footer__col-title">Company</li>
+          <li class="footer__link-item"><a href="#about">Our Story</a><span class="footer__link-arrow">&#8250;</span></li>
+          <li class="footer__link-item"><a href="#clients">Clients</a><span class="footer__link-arrow">&#8250;</span></li>
+          <li class="footer__link-item"><a href="#testimonials">Testimonials</a><span class="footer__link-arrow">&#8250;</span></li>
+          <li class="footer__link-item"><a href="#contact">Press</a><span class="footer__link-arrow">&#8250;</span></li>
+        </ul>
+        <ul class="footer__col">
+          <li class="footer__col-title">Legal</li>
+          <li class="footer__link-item"><a href="#">Privacy Policy</a><span class="footer__link-arrow">&#8250;</span></li>
+          <li class="footer__link-item"><a href="#">Terms of Service</a><span class="footer__link-arrow">&#8250;</span></li>
+          <li class="footer__link-item"><a href="#">Cookie Policy</a><span class="footer__link-arrow">&#8250;</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__flicker-wrap" id="footer-flicker-wrap">
+      <div class="footer__flicker-gradient"></div>
+      <canvas id="footer-flicker-canvas" class="footer__flicker-canvas"></canvas>
+    </div>
+  </footer>
+
+  <script src="main.js" defer></script>
+</body>
+</html>

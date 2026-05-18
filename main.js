@@ -23,6 +23,36 @@
   }
 
   /* ─────────────────────────────────────────────
+     SMOOTH ANCHOR SCROLL — all #href links
+     ───────────────────────────────────────────── */
+  document.addEventListener('click', function (e) {
+    var anchor = e.target.closest('a[href^="#"]');
+    if (!anchor) return;
+    var href = anchor.getAttribute('href');
+    if (!href || href === '#') return;
+    var target = document.querySelector(href);
+    if (!target) return;
+    e.preventDefault();
+    var navHeight = (document.querySelector('.navbar') || {}).offsetHeight || 64;
+    if (lenis) {
+      lenis.scrollTo(target, {
+        offset: -navHeight,
+        duration: 1.6,
+        easing: function (t) { return 1 - Math.pow(1 - t, 4); },
+      });
+    } else {
+      var top = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+    // Close mobile menu if open
+    var mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu && mobileMenu.classList.contains('open')) {
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+
+  /* ─────────────────────────────────────────────
      GSAP INIT
      ───────────────────────────────────────────── */
   if (typeof gsap === 'undefined') return;
@@ -390,6 +420,24 @@
     duration: DUR,
     ease: EASE,
     scrollTrigger: { trigger: '#contact', start: 'top 78%' },
+  });
+
+  /* ─────────────────────────────────────────────
+     MARKETS — section reveal
+     ───────────────────────────────────────────── */
+  gsap.from('.markets__left', {
+    x: -60,
+    opacity: 0,
+    duration: DUR,
+    ease: EASE,
+    scrollTrigger: { trigger: '#markets', start: 'top 80%' },
+  });
+  gsap.from('.markets__right', {
+    x: 60,
+    opacity: 0,
+    duration: DUR,
+    ease: EASE,
+    scrollTrigger: { trigger: '#markets', start: 'top 80%' },
   });
 
   /* ─────────────────────────────────────────────

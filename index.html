@@ -206,6 +206,79 @@
 
   </div>
 
+  <!-- GLOBAL PRESENCE -->
+  <section class="markets" id="markets">
+    <div class="markets__inner">
+      <div class="markets__left">
+        <p class="label">Global Presence</p>
+        <h2 class="markets__title">Three Hubs.<br><em>One Standard.</em></h2>
+        <p class="markets__desc">From the boulevards of Paris to the towers of Dubai and the avenues of New York &mdash; the same quiet expertise, wherever you need it.</p>
+        <div class="markets__hubs">
+          <div class="hub-btn" data-hub="paris">
+            <span class="hub-btn__dot"></span>
+            <div class="hub-btn__info">
+              <span class="hub-btn__city">Paris</span>
+              <span class="hub-btn__region">Europe &middot; France</span>
+            </div>
+          </div>
+          <div class="hub-btn" data-hub="dubai">
+            <span class="hub-btn__dot"></span>
+            <div class="hub-btn__info">
+              <span class="hub-btn__city">Dubai</span>
+              <span class="hub-btn__region">Middle East &middot; UAE</span>
+            </div>
+          </div>
+          <div class="hub-btn" data-hub="newyork">
+            <span class="hub-btn__dot"></span>
+            <div class="hub-btn__info">
+              <span class="hub-btn__city">New York</span>
+              <span class="hub-btn__region">Americas &middot; USA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="markets__right">
+        <div class="markets__visual" id="markets-visual">
+          <div class="markets__ring"></div>
+          <div class="markets__ring markets__ring--2"></div>
+          <div class="markets__globe-wrap" id="markets-globe-wrap">
+            <canvas id="markets-globe"></canvas>
+          </div>
+          <div class="globe-label" id="glabel-paris">Paris</div>
+          <div class="globe-label" id="glabel-dubai">Dubai</div>
+          <div class="globe-label" id="glabel-newyork">New York</div>
+          <div class="markets__city" id="city-paris">
+            <img src="https://images.unsplash.com/photo-1549638441-b787d2e11f14?w=1200&q=85" alt="Paris">
+            <div class="markets__city-overlay"></div>
+            <div class="markets__city-info">
+              <p class="markets__city-label">Hub 01</p>
+              <h3 class="markets__city-name">Paris</h3>
+              <p class="markets__city-sub">8&egrave;me Arrondissement &middot; Est. 2006</p>
+            </div>
+          </div>
+          <div class="markets__city" id="city-dubai">
+            <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1200&q=85" alt="Dubai">
+            <div class="markets__city-overlay"></div>
+            <div class="markets__city-info">
+              <p class="markets__city-label">Hub 02</p>
+              <h3 class="markets__city-name">Dubai</h3>
+              <p class="markets__city-sub">Downtown Dubai &middot; Est. 2015</p>
+            </div>
+          </div>
+          <div class="markets__city" id="city-newyork">
+            <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=85" alt="New York">
+            <div class="markets__city-overlay"></div>
+            <div class="markets__city-info">
+              <p class="markets__city-label">Hub 03</p>
+              <h3 class="markets__city-name">New York</h3>
+              <p class="markets__city-sub">Manhattan &middot; Est. 2019</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FEATURED RESIDENCES -->
   <section class="residences" id="residences">
     <div class="residences__header">
@@ -430,5 +503,6 @@
   </footer>
 
   <script src="main.js" defer></script>
+  <script type="module" src="globe.js"></script>
 </body>
 </html>

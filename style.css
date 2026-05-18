@@ -165,10 +165,10 @@ img { max-width: 100%; display: block; }
 /* TESTIMONIALS */
 .testimonials { padding: 8rem 48px; background: var(--light-gray); }
 .testimonials__inner { max-width: 900px; margin: 0 auto; text-align: center; }
-.carousel { position: relative; overflow: hidden; margin-top: 48px; }
+.carousel { position: relative; overflow: hidden; margin-top: 48px; width: 100%; }
 .carousel__track { display: flex; transition: transform .7s var(--ease); }
-.carousel__slide { min-width: 100%; padding: 48px 40px; flex-shrink: 0; }
-.carousel__quote { font-family: var(--font-serif); font-size: clamp(1.3rem, 2.5vw, 1.9rem); font-weight: 300; font-style: italic; color: var(--charcoal); line-height: 1.6; margin-bottom: 40px; position: relative; }
+.carousel__slide { min-width: 100%; width: 100%; padding: 48px 40px; flex-shrink: 0; box-sizing: border-box; }
+.carousel__quote { font-family: var(--font-serif); font-size: clamp(1.1rem, 1.8vw, 1.55rem); font-weight: 300; font-style: italic; color: var(--charcoal); line-height: 1.7; margin: 0 auto 40px; position: relative; max-width: 640px; }
 .carousel__quote::before { content: '\201C'; position: absolute; top: -40px; left: 50%; transform: translateX(-50%); font-family: var(--font-serif); font-size: 6rem; color: var(--gold); opacity: .2; line-height: 1; }
 .carousel__author { display: flex; align-items: center; justify-content: center; gap: 16px; }
 .carousel__avatar { width: 48px; height: 48px; background: var(--gold); color: var(--white); font-size: .72rem; font-weight: 600; letter-spacing: .06em; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }

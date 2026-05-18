@@ -89,14 +89,20 @@
     .to('.hero__scroll', { opacity: 1, duration: 0.6, ease: EASE }, '-=0.2');
 
   // Frame-sequence scroll animation
-  var TOTAL_FRAMES = 212;
   var heroCanvas = document.getElementById('hero-canvas');
   var heroCtx = heroCanvas ? heroCanvas.getContext('2d') : null;
-  var frameImgs = new Array(TOTAL_FRAMES).fill(null);
 
   function padFrame(n) {
     return n < 10 ? '00' + n : n < 100 ? '0' + n : '' + n;
   }
+
+  // Build ordered path list: animation1 (75) → animation2 (120) → animation3 (120)
+  var frameFiles = [];
+  for (var a1 = 1; a1 <= 75; a1++)  frameFiles.push('frames/animation1-frame-' + padFrame(a1) + '.jpg');
+  for (var a2 = 1; a2 <= 120; a2++) frameFiles.push('frames/animation2-frame-' + padFrame(a2) + '.jpg');
+  for (var a3 = 1; a3 <= 120; a3++) frameFiles.push('frames/animation3-frame-' + padFrame(a3) + '.jpg');
+  var TOTAL_FRAMES = frameFiles.length; // 315
+  var frameImgs = new Array(TOTAL_FRAMES).fill(null);
 
   function resizeHeroCanvas() {
     if (!heroCanvas) return;
@@ -124,14 +130,14 @@
   // Load frame 1 immediately so above-the-fold isn't blank
   var firstFrame = new Image();
   firstFrame.onload = function () { frameImgs[0] = firstFrame; drawHeroFrame(firstFrame); };
-  firstFrame.src = 'frames/ezgif-frame-001.jpg';
+  firstFrame.src = frameFiles[0];
 
   // Preload remaining frames in background
   for (var fi = 1; fi < TOTAL_FRAMES; fi++) {
     (function (idx) {
       var img = new Image();
       img.onload = function () { frameImgs[idx] = img; };
-      img.src = 'frames/ezgif-frame-' + padFrame(idx + 1) + '.jpg';
+      img.src = frameFiles[idx];
     }(fi));
   }
 
@@ -146,9 +152,14 @@
       var idx = Math.min(TOTAL_FRAMES - 1, Math.floor(self.progress * TOTAL_FRAMES));
       if (frameImgs[idx]) drawHeroFrame(frameImgs[idx]);
       var p = self.progress;
-      var textOp = p < 0.15 ? 1 : Math.max(0, 1 - (p - 0.15) / 0.4);
-      gsap.set('.hero__content, .hero__scroll', { opacity: textOp });
-      var bottomOp = Math.max(0, 1 - p / 0.35);
+      // Panel 1: fade out immediately on scroll, gone by 25%
+      var textOp = Math.max(0, 1 - p / 0.25);
+      gsap.set('#hero-content-1, .hero__scroll', { opacity: textOp });
+      // Panel 3 (Artistry): fade in at 55%, full at 65%, fade out at 85%, gone at 100%
+      var thirdOp = p < 0.55 ? 0 : p < 0.65 ? (p - 0.55) / 0.1 : p < 0.85 ? 1 : Math.max(0, 1 - (p - 0.85) / 0.15);
+      gsap.set('#hero-content-3', { opacity: thirdOp });
+      // Cream gradient: gone by 30%
+      var bottomOp = Math.max(0, 1 - p / 0.3);
       gsap.set('#hero-overlay-bottom', { opacity: bottomOp });
     },
   });

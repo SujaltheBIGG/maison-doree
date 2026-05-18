@@ -38,8 +38,8 @@ img { max-width: 100%; display: block; }
 .btn--full { width: 100%; text-align: center; }
 
 /* NAVBAR */
-.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 40px; background: rgba(10,10,10,.82); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,.07); animation: navbarDrop .7s cubic-bezier(0.16,1,0.3,1) both; transition: background .4s var(--ease), box-shadow .4s var(--ease); }
-.navbar--scrolled { background: rgba(10,10,10,.96); box-shadow: 0 1px 40px rgba(0,0,0,.4); }
+.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 40px; background: transparent; border-bottom: 1px solid transparent; animation: navbarDrop .7s cubic-bezier(0.16,1,0.3,1) both; transition: background .4s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease); }
+.navbar--scrolled { background: rgba(10,10,10,.88); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom-color: rgba(255,255,255,.07); box-shadow: 0 1px 40px rgba(0,0,0,.4); }
 @keyframes navbarDrop { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 .navbar__logo { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 400; color: var(--cream); letter-spacing: .02em; flex-shrink: 0; }
 .navbar__logo-accent { color: var(--gold); font-style: italic; }

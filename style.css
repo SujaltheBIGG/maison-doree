@@ -10,7 +10,7 @@
   --border: #E5E3DF;
   --font-serif: 'Cormorant Garamond', serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --nav-h: 80px;
+  --nav-h: 72px;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
 }
@@ -37,19 +37,17 @@ img { max-width: 100%; display: block; }
 .btn--lg { padding: 20px 52px; font-size: .8rem; }
 .btn--full { width: 100%; text-align: center; }
 
-/* NAVBAR — Animated floating pill */
-.anav { position: fixed; top: 24px; left: 50%; transform: translateX(-50%); z-index: 1000; display: flex; align-items: center; height: 48px; background: rgba(10,10,10,.82); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.09); border-radius: 100px; box-shadow: 0 8px 32px rgba(0,0,0,.35), 0 1px 0 rgba(255,255,255,.04) inset; overflow: hidden; white-space: nowrap; cursor: default; animation: anavDrop .7s cubic-bezier(0.16,1,0.3,1) both; transition: width .55s cubic-bezier(0.16,1,0.3,1); }
-@keyframes anavDrop { from { transform: translateX(-50%) translateY(-72px); opacity: 0; } to { transform: translateX(-50%) translateY(0); opacity: 1; } }
-.anav__logo { flex-shrink: 0; display: flex; align-items: center; padding: 0 8px 0 16px; color: var(--gold); transition: opacity .35s var(--ease), transform .45s cubic-bezier(0.16,1,0.3,1); }
-.anav__links { display: flex; align-items: center; gap: 2px; padding-right: 14px; transition: opacity .3s var(--ease), transform .35s var(--ease); }
-.anav__link { font-size: .73rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.58); padding: 6px 13px; border-radius: 100px; transition: background .25s var(--ease), color .25s var(--ease); }
-.anav__link:hover { background: rgba(255,255,255,.06); color: var(--gold); }
-.anav__menu-icon { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.7); opacity: 0; pointer-events: none; transition: opacity .25s var(--ease) .12s; }
-.anav.collapsed { width: 48px; cursor: pointer; }
-.anav.collapsed .anav__logo { opacity: 0; transform: translateX(-18px) rotate(-160deg); transition: opacity .25s var(--ease), transform .35s cubic-bezier(0.16,1,0.3,1); }
-.anav.collapsed .anav__links { opacity: 0; transform: translateX(-12px); pointer-events: none; transition: opacity .2s var(--ease), transform .25s var(--ease); }
-.anav.collapsed .anav__menu-icon { opacity: 1; pointer-events: none; transition: opacity .3s var(--ease) .18s; }
-.anav:not(.collapsed):hover { box-shadow: 0 8px 40px rgba(0,0,0,.4), 0 1px 0 rgba(255,255,255,.06) inset; }
+/* NAVBAR */
+.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 40px; background: rgba(10,10,10,.82); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,.07); animation: navbarDrop .7s cubic-bezier(0.16,1,0.3,1) both; transition: background .4s var(--ease), box-shadow .4s var(--ease); }
+.navbar--scrolled { background: rgba(10,10,10,.96); box-shadow: 0 1px 40px rgba(0,0,0,.4); }
+@keyframes navbarDrop { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.navbar__logo { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 400; color: var(--cream); letter-spacing: .02em; flex-shrink: 0; }
+.navbar__logo-accent { color: var(--gold); font-style: italic; }
+.navbar__links { display: flex; align-items: center; gap: 2px; }
+.navbar__link { font-size: .73rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.58); padding: 8px 14px; border-radius: 4px; transition: color .25s var(--ease); }
+.navbar__link:hover { color: var(--gold); }
+.navbar__hamburger { display: none; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid rgba(255,255,255,.12); border-radius: 6px; color: rgba(255,255,255,.7); cursor: pointer; transition: border-color .3s var(--ease), color .3s var(--ease); }
+.navbar__hamburger:hover { border-color: var(--gold); color: var(--gold); }
 
 /* MOBILE MENU */
 .mobile-menu { position: fixed; inset: 0; z-index: 1050; background: rgba(10,10,10,.97); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .5s var(--ease); }
@@ -66,7 +64,7 @@ img { max-width: 100%; display: block; }
 .hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .hero__canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
 .hero__overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,17,17,.55) 0%, rgba(17,17,17,.25) 65%, transparent 100%); z-index: 1; }
-.hero__overlay-bottom { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 75%, var(--cream) 100%); z-index: 1; pointer-events: none; opacity: 0.55; }
+.hero__overlay-bottom { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 75%, var(--cream) 100%); z-index: 1; pointer-events: none; opacity: 0; }
 .hero__content { position: relative; z-index: 2; text-align: center; padding: 0 24px; max-width: 860px; }
 .hero__content--2 { position: absolute; z-index: 2; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; padding: 0 24px; max-width: 860px; width: 100%; opacity: 0; }
 .hero__eyebrow { font-size: .75rem; font-weight: 400; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; opacity: 0; transform: translateY(20px); }
@@ -246,10 +244,9 @@ img { max-width: 100%; display: block; }
   .footer__nav-cols { gap: 36px; }
 }
 @media (max-width: 768px) {
-  .anav__links { display: none; }
-  .anav { width: 48px !important; cursor: pointer; }
-  .anav__logo { opacity: 0; pointer-events: none; }
-  .anav .anav__menu-icon { opacity: 1; pointer-events: none; transition: none; }
+  .navbar { padding: 0 20px; height: 60px; }
+  .navbar__links { display: none; }
+  .navbar__hamburger { display: flex; }
   .philosophy { padding: 6rem 24px; }
   .philosophy__text { font-size: clamp(1.6rem, 5vw, 2.4rem); }
   .about { padding: 5rem 24px; }
@@ -289,7 +286,7 @@ img { max-width: 100%; display: block; }
   .footer__flicker-wrap { height: 120px; margin-top: 24px; }
 }
 @media (max-width: 480px) {
-  :root { --nav-h: 64px; }
+  :root { --nav-h: 60px; }
   .hero__title { font-size: 2.4rem; }
   .mobile-menu__link { font-size: 1.6rem; }
   .services__heading { font-size: 2rem; }

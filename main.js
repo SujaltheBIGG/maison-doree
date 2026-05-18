@@ -33,16 +33,12 @@
   var DUR  = 1;
 
   /* ─────────────────────────────────────────────
-     NAVBAR — animated floating pill
+     NAVBAR
      ───────────────────────────────────────────── */
-  var anav = document.getElementById('anav');
+  var navbar = document.getElementById('navbar');
   var mobileMenu = document.getElementById('mobile-menu');
   var mobileCloseBtn = document.getElementById('mobile-menu-close');
-  var isMobile = function () { return window.innerWidth <= 768; };
-  var navExpanded = true;
-  var lastNavScroll = 0;
-  var scrollAtCollapse = 0;
-  var EXPAND_THRESHOLD = 80;
+  var hamburger = document.getElementById('navbar-hamburger');
 
   function openMobileMenu() {
     mobileMenu.classList.add('active');
@@ -56,26 +52,14 @@
   }
 
   window.addEventListener('scroll', function () {
-    var cur = window.scrollY;
-    if (navExpanded && cur > lastNavScroll && cur > 150) {
-      navExpanded = false;
-      scrollAtCollapse = cur;
-      anav.classList.add('collapsed');
-    } else if (!navExpanded && cur < lastNavScroll && (scrollAtCollapse - cur) > EXPAND_THRESHOLD) {
-      navExpanded = true;
-      anav.classList.remove('collapsed');
+    if (window.scrollY > 60) {
+      navbar.classList.add('navbar--scrolled');
+    } else {
+      navbar.classList.remove('navbar--scrolled');
     }
-    lastNavScroll = cur;
   }, { passive: true });
 
-  anav.addEventListener('click', function () {
-    if (isMobile()) {
-      openMobileMenu();
-    } else if (!navExpanded) {
-      navExpanded = true;
-      anav.classList.remove('collapsed');
-    }
-  });
+  if (hamburger) hamburger.addEventListener('click', openMobileMenu);
 
   /* ─────────────────────────────────────────────
      HERO — entrance timeline + parallax
@@ -158,8 +142,8 @@
       // Panel 3 (Artistry): fade in at 55%, full at 65%, fade out at 85%, gone at 100%
       var thirdOp = p < 0.55 ? 0 : p < 0.65 ? (p - 0.55) / 0.1 : p < 0.85 ? 1 : Math.max(0, 1 - (p - 0.85) / 0.15);
       gsap.set('#hero-content-3', { opacity: thirdOp });
-      // Cream gradient: gone by 30%
-      var bottomOp = Math.max(0, 1 - p / 0.3);
+      // Cream gradient: fades in at end to transition into next section
+      var bottomOp = p > 0.85 ? (p - 0.85) / 0.15 : 0;
       gsap.set('#hero-overlay-bottom', { opacity: bottomOp });
     },
   });

@@ -254,15 +254,27 @@ img { max-width: 100%; display: block; }
   .philosophy__text { font-size: clamp(1.6rem, 5vw, 2.4rem); }
   .about { padding: 5rem 24px; }
   .about__inner { grid-template-columns: 1fr; gap: 24px; }
+  /* Gallery — convert to static 2-col grid, disable zoom animation via JS */
+  .zp-container { height: auto; }
+  .zp-sticky { position: relative; height: auto; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 5px; }
+  .zp-item { position: relative; width: 100%; height: auto; display: block; }
+  .zp-item:first-child { grid-column: 1 / -1; }
+  .zp-inner,
   .zp-item[data-zp-index="1"] .zp-inner,
   .zp-item[data-zp-index="2"] .zp-inner,
   .zp-item[data-zp-index="3"] .zp-inner,
   .zp-item[data-zp-index="4"] .zp-inner,
   .zp-item[data-zp-index="5"] .zp-inner,
-  .zp-item[data-zp-index="6"] .zp-inner { width: 40vw; height: 22vh; top: auto; left: auto; }
+  .zp-item[data-zp-index="6"] .zp-inner { position: relative; width: 100%; height: 46vw; top: 0; left: 0; }
+  .zp-item:first-child .zp-inner { height: 60vw; }
   .story__steps { padding: 4rem 24px; gap: 48px; }
-  .residences { padding: 5rem 24px; }
-  .residences__grid { grid-template-columns: 1fr; }
+  .residences { padding: 0; }
+  .residences__header { padding: 4rem 24px 3rem; }
+  .res-row { flex-direction: column; min-height: auto; padding: 0 0 4rem; gap: 0; }
+  .res-row--reverse { flex-direction: column; }
+  .res-row__text { width: 100%; padding: 28px 24px 20px; order: 2; }
+  .res-row__img { width: 100%; order: 1; }
+  .res-row__img img { width: 100%; height: 72vw; max-height: 380px; }
   .services { padding: 5rem 24px; }
   .testimonials { padding: 5rem 24px; }
   .carousel__slide { padding: 32px 16px; }
@@ -270,10 +282,11 @@ img { max-width: 100%; display: block; }
   .contact__info { padding: 4rem 24px; }
   .contact__form-wrap { padding: 4rem 24px; }
   .contact__row { grid-template-columns: 1fr; }
-  .footer__main { flex-direction: column; padding: 48px 24px 32px; }
+  .footer__main { flex-direction: column; padding: 48px 24px 24px; }
   .footer__brand-col { max-width: 100%; }
-  .footer__nav-cols { flex-wrap: wrap; gap: 32px; }
-  .footer__flicker-wrap { height: 140px; margin-top: 40px; }
+  .footer__col { margin: 0; padding: 0; }
+  .footer__nav-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+  .footer__flicker-wrap { height: 120px; margin-top: 24px; }
 }
 @media (max-width: 480px) {
   :root { --nav-h: 64px; }

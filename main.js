@@ -205,7 +205,7 @@
   var zpItems = document.querySelectorAll('.zp-item');
   var zpScales = [4, 5, 6, 5, 6, 8, 9];
 
-  if (zpItems.length) {
+  if (zpItems.length && window.innerWidth > 768) {
     zpItems.forEach(function (item, i) {
       var target = zpScales[i % zpScales.length];
       gsap.fromTo(item,

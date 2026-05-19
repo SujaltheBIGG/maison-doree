@@ -263,6 +263,7 @@
 
   if (flowSections.length > 0) {
     var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var isDesktop = window.innerWidth > 768;
 
     flowSections.forEach(function (section, i) {
       // Stack sections by z-index so later ones sit on top
@@ -271,7 +272,7 @@
       var inner = section.querySelector('.flow-inner');
       if (!inner) return;
 
-      if (!prefersReducedMotion) {
+      if (!prefersReducedMotion && isDesktop) {
         // Sections after the first: start at 30° rotation, scrub to 0°
         if (i > 0) {
           gsap.set(inner, { rotation: 30, transformOrigin: 'bottom left' });

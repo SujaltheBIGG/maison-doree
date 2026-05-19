@@ -4,22 +4,7 @@
   /* ─────────────────────────────────────────────
      LENIS — buttery smooth scroll
      ───────────────────────────────────────────── */
-  /* Chrome/Brave have fast compositor-thread native scroll — Lenis would override it
-     with slower JS-driven scroll. Only enable Lenis on Safari / Firefox. */
-  var isChromiumBrowser = /Chrome\//.test(navigator.userAgent);
-  var lenis;
-  if (typeof Lenis !== 'undefined' && !isChromiumBrowser) {
-    lenis = new Lenis({
-      duration: 1.2,
-      easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-    });
-    lenis.on('scroll', function () {
-      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update();
-    });
-  }
+  var lenis; /* disabled — all browsers use native compositor-thread scroll */
 
   /* ─────────────────────────────────────────────
      SMOOTH ANCHOR SCROLL — all #href links
@@ -56,11 +41,6 @@
      ───────────────────────────────────────────── */
   if (typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
-
-  if (lenis) {
-    gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
-    gsap.ticker.lagSmoothing(0);
-  }
 
   // Global defaults — everything feels the same
   var EASE = 'power3.out';

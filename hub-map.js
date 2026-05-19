@@ -71,7 +71,7 @@
     activeHub = null;
   }
 
-  /* ── Zone event listeners ── */
+  /* ── Mouse (desktop) ── */
   zones.forEach(function (zone) {
     zone.addEventListener('mouseenter', function () {
       clearTimeout(leaveTimer);
@@ -83,9 +83,35 @@
     });
   });
 
-  /* Leaving the entire map container also hides */
   inner.addEventListener('mouseleave', function () {
     clearTimeout(leaveTimer);
     hideHub();
   });
+
+  /* ── Touch (mobile) — horizontal thirds ── */
+  /* Left ~38 % = New York | Middle ~22 % = Paris | Right ~40 % = Dubai */
+  inner.addEventListener('touchstart', function (e) {
+    clearTimeout(leaveTimer);
+    var touch = e.touches[0];
+    var rect  = inner.getBoundingClientRect();
+    var pct   = (touch.clientX - rect.left) / rect.width;
+
+    var hubId;
+    if (pct < 0.38)      { hubId = 'newyork'; }
+    else if (pct < 0.60) { hubId = 'paris'; }
+    else                 { hubId = 'dubai'; }
+
+    showHub(hubId);
+  }, { passive: true });
+
+  /* Lifting the finger restores the map */
+  inner.addEventListener('touchend', function () {
+    clearTimeout(leaveTimer);
+    leaveTimer = setTimeout(hideHub, 300);
+  }, { passive: true });
+
+  inner.addEventListener('touchcancel', function () {
+    clearTimeout(leaveTimer);
+    hideHub();
+  }, { passive: true });
 }());

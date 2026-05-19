@@ -48,6 +48,16 @@ import createGlobe from 'https://esm.sh/cobe@0.6.3';
   var size   = (visual && visual.offsetWidth > 0) ? visual.offsetWidth : 480;
   var dpr    = Math.min(window.devicePixelRatio || 1, 2);
 
+  /* ── Cache label elements once (avoid getElementById every frame) ── */
+  var labels = {};
+  HUBS.forEach(function (hub) { labels[hub.id] = document.getElementById('glabel-' + hub.id); });
+
+  /* ── Cache offsetWidth (avoid layout read every frame) ── */
+  var cachedCssSz = canvas.offsetWidth || size;
+  window.addEventListener('resize', function () {
+    cachedCssSz = canvas.offsetWidth || size;
+  }, { passive: true });
+
   /* ── 3-D projection ── */
   function project(lat, lng, gPhi, gTheta, sz) {
     var latR = lat * Math.PI / 180;
@@ -181,15 +191,16 @@ import createGlobe from 'https://esm.sh/cobe@0.6.3';
 
   /* ── Label loop + hover detection ── */
   var HOVER_RADIUS = 40;
+  var loopRafId = null;
 
   function loop() {
-    requestAnimationFrame(loop);
-    var cssSz     = canvas.offsetWidth || size;
+    loopRafId = requestAnimationFrame(loop);
+    var cssSz     = cachedCssSz;
     var hoveredId = null;
 
     HUBS.forEach(function (hub) {
       var p   = project(hub.lat, hub.lng, displayPhi, displayTheta, cssSz);
-      var lbl = document.getElementById('glabel-' + hub.id);
+      var lbl = labels[hub.id];
 
       if (lbl) {
         if (p.visible && !activeCityId) {
@@ -216,6 +227,18 @@ import createGlobe from 'https://esm.sh/cobe@0.6.3';
       if (hoveredId) showCity(hoveredId);
       else hideCity();
     }
+  }
+
+  /* Pause label loop when globe section is off-screen */
+  if (visual && typeof IntersectionObserver !== 'undefined') {
+    new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        if (!loopRafId) loop();
+      } else {
+        cancelAnimationFrame(loopRafId);
+        loopRafId = null;
+      }
+    }, { threshold: 0 }).observe(visual);
   }
 
   /* ── Pointer drag (velocity + momentum) ── */

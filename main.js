@@ -4,8 +4,11 @@
   /* ─────────────────────────────────────────────
      LENIS — buttery smooth scroll
      ───────────────────────────────────────────── */
+  /* Chrome/Brave have fast compositor-thread native scroll — Lenis would override it
+     with slower JS-driven scroll. Only enable Lenis on Safari / Firefox. */
+  var isChromiumBrowser = /Chrome\//.test(navigator.userAgent);
   var lenis;
-  if (typeof Lenis !== 'undefined') {
+  if (typeof Lenis !== 'undefined' && !isChromiumBrowser) {
     lenis = new Lenis({
       duration: 1.2,
       easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
@@ -16,10 +19,6 @@
     lenis.on('scroll', function () {
       if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update();
     });
-    (function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    })(performance.now());
   }
 
   /* ─────────────────────────────────────────────
@@ -57,6 +56,11 @@
      ───────────────────────────────────────────── */
   if (typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
+
+  if (lenis) {
+    gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
 
   // Global defaults — everything feels the same
   var EASE = 'power3.out';
@@ -104,7 +108,8 @@
 
   // Frame-sequence scroll animation
   var heroCanvas = document.getElementById('hero-canvas');
-  var heroCtx = heroCanvas ? heroCanvas.getContext('2d') : null;
+  var heroCtx = heroCanvas ? heroCanvas.getContext('2d', { alpha: false }) : null;
+  var heroDpr = window.devicePixelRatio || 1;
 
   function padFrame(n) {
     return n < 10 ? '00' + n : n < 100 ? '0' + n : '' + n;
@@ -120,14 +125,18 @@
 
   function resizeHeroCanvas() {
     if (!heroCanvas) return;
-    heroCanvas.width = heroCanvas.offsetWidth;
-    heroCanvas.height = heroCanvas.offsetHeight;
+    heroDpr = window.devicePixelRatio || 1;
+    var w = heroCanvas.offsetWidth;
+    var h = heroCanvas.offsetHeight;
+    heroCanvas.width  = Math.round(w * heroDpr);
+    heroCanvas.height = Math.round(h * heroDpr);
+    heroCtx.setTransform(heroDpr, 0, 0, heroDpr, 0, 0);
     if (frameImgs[0]) drawHeroFrame(frameImgs[0]);
   }
 
   function drawHeroFrame(img) {
     if (!img || !img.complete || !img.naturalWidth || !heroCtx) return;
-    var cw = heroCanvas.width, ch = heroCanvas.height;
+    var cw = Math.round(heroCanvas.width / heroDpr), ch = Math.round(heroCanvas.height / heroDpr);
     var ir = img.naturalWidth / img.naturalHeight, cr = cw / ch;
     var sx, sy, sw, sh;
     if (ir > cr) {
@@ -212,46 +221,38 @@
 
   /* ─────────────────────────────────────────────
      ZOOM PARALLAX GALLERY
-     Ported from ZoomParallax (framer-motion → GSAP):
-       scale targets match [scale4,scale5,scale6,scale5,scale6,scale8,scale9]
-       all images scrub from 1 → target over the full 300vh container
+     Mirrors Framer Motion ZoomParallax component:
+       - Section is pinned via GSAP (Lenis-safe, no CSS sticky)
+       - Each layer scales from 1 → its end value as
+         the section scrolls through the pinned distance
      ───────────────────────────────────────────── */
-  var zpItems = document.querySelectorAll('.zp-item');
-  var zpScales = [4, 5, 6, 5, 6, 8, 9];
+  (function initZoomParallax() {
+    var section = document.getElementById('zoom-parallax');
+    if (!section) return;
 
-  if (zpItems.length && window.innerWidth > 768) {
-    zpItems.forEach(function (item, i) {
-      var target = zpScales[i % zpScales.length];
-      gsap.fromTo(item,
-        { scale: 1 },
-        {
-          scale: target,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '#gallery',
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: true,
-          },
-        }
-      );
+    var scaleEnds = [4, 5, 6, 5, 6, 8, 9];
+    var layers = Array.from(section.querySelectorAll('.zoom-parallax__layer'));
+    var isMobile = window.innerWidth <= 768;
+    // Pin the section and create extra scroll distance so the zoom plays out
+    // over 2× the viewport height (mobile) or 3× (desktop), matching the
+    // original 300 vh container from the Framer Motion component.
+    var extraScroll = window.innerHeight * (isMobile ? 1 : 2);
+
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top top',
+      end: '+=' + extraScroll,
+      pin: true,
+      scrub: true,
+      onUpdate: function (self) {
+        var p = self.progress;
+        layers.forEach(function (layer, i) {
+          var end = scaleEnds[i] !== undefined ? scaleEnds[i] : 4;
+          gsap.set(layer, { scale: 1 + (end - 1) * p });
+        });
+      },
     });
-
-    // Caption fades IN once zoom is complete — hidden until bottom of gallery nears viewport
-    gsap.fromTo('#zp-caption',
-      { opacity: 0 },
-      {
-        opacity: 1,
-        duration: 1.2,
-        ease: EASE,
-        scrollTrigger: {
-          trigger: '#gallery',
-          start: 'bottom 130%',
-          toggleActions: 'play none none reverse',
-        },
-      }
-    );
-  }
+  }());
 
   /* ─────────────────────────────────────────────
      FLOW STORY SCROLL — FlowArt rotation + pin stack
@@ -541,6 +542,7 @@
     var cols, rows, squares, dpr;
     var animId = null;
     var isInView = false;
+    var maskCache = null;
 
     function setup() {
       dpr = window.devicePixelRatio || 1;
@@ -556,9 +558,11 @@
       for (var i = 0; i < squares.length; i++) {
         squares[i] = Math.random() * cfg.maxOpacity;
       }
+      maskCache = null;
+      buildMaskCache();
     }
 
-    function buildMask() {
+    function buildMaskCache() {
       var mc = document.createElement('canvas');
       mc.width = canvas.width;
       mc.height = canvas.height;
@@ -571,27 +575,32 @@
       mctx.textBaseline = 'middle';
       mctx.fillText(cfg.text, canvas.width / (2 * dpr), canvas.height / (2 * dpr));
       mctx.restore();
-      return mctx;
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      var mctx = buildMask();
+      maskCache = new Uint8Array(cols * rows);
+      var sqPx = Math.max(1, Math.round(cfg.squareSize * dpr));
       for (var i = 0; i < cols; i++) {
         for (var j = 0; j < rows; j++) {
           var x = Math.round(i * (cfg.squareSize + cfg.gridGap) * dpr);
           var y = Math.round(j * (cfg.squareSize + cfg.gridGap) * dpr);
-          var sw = Math.max(1, Math.round(cfg.squareSize * dpr));
-          var sh = Math.max(1, Math.round(cfg.squareSize * dpr));
-          var md = mctx.getImageData(x, y, sw, sh).data;
-          var hasText = false;
+          var md = mctx.getImageData(x, y, sqPx, sqPx).data;
           for (var k = 0; k < md.length; k += 4) {
-            if (md[k] > 0) { hasText = true; break; }
+            if (md[k] > 0) { maskCache[i * rows + j] = 1; break; }
           }
+        }
+      }
+    }
+
+    function draw() {
+      if (!maskCache) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      var sqPx = Math.max(1, Math.round(cfg.squareSize * dpr));
+      for (var i = 0; i < cols; i++) {
+        for (var j = 0; j < rows; j++) {
+          var x = Math.round(i * (cfg.squareSize + cfg.gridGap) * dpr);
+          var y = Math.round(j * (cfg.squareSize + cfg.gridGap) * dpr);
           var op = squares[i * rows + j];
-          var finalOp = hasText ? Math.min(1, op * 3 + 0.45) : op;
+          var finalOp = maskCache[i * rows + j] ? Math.min(1, op * 3 + 0.45) : op;
           ctx.fillStyle = 'rgba(' + cfg.r + ',' + cfg.g + ',' + cfg.b + ',' + finalOp.toFixed(3) + ')';
-          ctx.fillRect(x, y, sw, sh);
+          ctx.fillRect(x, y, sqPx, sqPx);
         }
       }
     }
@@ -644,5 +653,7 @@
       setTimeout(function () { success.classList.remove('show'); form.reset(); }, 3000);
     });
   }
+
+  window.addEventListener('load', function () { ScrollTrigger.refresh(); }, { once: true });
 
 })();

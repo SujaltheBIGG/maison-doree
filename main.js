@@ -335,27 +335,43 @@
     );
   });
 
-  /* ─────────────────────────────────────────────
-     SERVICES — heading + steps cascade
-     ───────────────────────────────────────────── */
-  gsap.from('.services__left', {
-    y: 50,
-    opacity: 0,
-    duration: DUR,
-    ease: EASE,
-    scrollTrigger: { trigger: '#services', start: 'top 78%' },
-  });
+  ScrollTrigger.refresh();
 
-  gsap.utils.toArray('.services__step').forEach(function (step, i) {
-    gsap.from(step, {
-      x: 50,
-      opacity: 0,
-      duration: 0.8,
-      delay: i * 0.1,
-      ease: EASE,
-      scrollTrigger: { trigger: step, start: 'top 88%' },
+  /* ─────────────────────────────────────────────
+     SERVICES — premium layered reveal
+     ───────────────────────────────────────────── */
+  (function () {
+    var svcSection = document.getElementById('services');
+    if (!svcSection) return;
+
+    gsap.timeline({ scrollTrigger: { trigger: svcSection, start: 'top 72%' } })
+      .from('.services__heading', { y: 48, opacity: 0, duration: 1.1, ease: EASE })
+      .from('.services__left .btn--dark', { y: 18, opacity: 0, duration: 0.75, ease: EASE }, '-=0.5');
+
+    gsap.from('.services__label', {
+      y: 18, opacity: 0, duration: 0.7, ease: EASE,
+      scrollTrigger: { trigger: svcSection, start: 'top 72%' },
     });
-  });
+
+    gsap.utils.toArray('.services__step').forEach(function (step, i) {
+      var num     = step.querySelector('.services__num');
+      var content = step.querySelector('div');
+      var delay   = i * 0.13;
+
+      if (num) {
+        gsap.from(num, {
+          scale: 0.6, opacity: 0, duration: 0.55, ease: EASE, delay: delay,
+          scrollTrigger: { trigger: step, start: 'top 89%' },
+        });
+      }
+      if (content) {
+        gsap.from(content, {
+          y: 22, opacity: 0, duration: 0.8, ease: EASE, delay: delay + 0.1,
+          scrollTrigger: { trigger: step, start: 'top 89%' },
+        });
+      }
+    });
+  }());
 
   /* ─────────────────────────────────────────────
      TESTIMONIALS — reveal
@@ -387,22 +403,24 @@
   });
 
   /* ─────────────────────────────────────────────
-     CONTACT — split entrance
+     CONTACT — editorial staggered reveal
      ───────────────────────────────────────────── */
-  gsap.from('.contact__info', {
-    x: -60,
-    opacity: 0,
-    duration: DUR,
-    ease: EASE,
-    scrollTrigger: { trigger: '#contact', start: 'top 78%' },
-  });
-  gsap.from('.contact__form-wrap', {
-    x: 60,
-    opacity: 0,
-    duration: DUR,
-    ease: EASE,
-    scrollTrigger: { trigger: '#contact', start: 'top 78%' },
-  });
+  (function () {
+    var contactSection = document.getElementById('contact');
+    if (!contactSection) return;
+
+    gsap.timeline({ scrollTrigger: { trigger: contactSection, start: 'top 75%' } })
+      .from('.contact__info .label', { y: 16, opacity: 0, duration: 0.65, ease: EASE })
+      .from('.contact__title',       { y: 36, opacity: 0, duration: 1.0,  ease: EASE }, '-=0.3')
+      .from('.contact__text',        { y: 20, opacity: 0, duration: 0.8,  ease: EASE }, '-=0.45')
+      .from('.contact__detail',      { y: 16, opacity: 0, duration: 0.65, ease: EASE, stagger: 0.12 }, '-=0.4');
+
+    var formEls = contactSection.querySelectorAll('.contact__row, .contact__form > input, .contact__form textarea, .contact__form > .btn--full');
+    gsap.from(formEls, {
+      y: 28, opacity: 0, duration: 0.7, ease: EASE, stagger: 0.12,
+      scrollTrigger: { trigger: contactSection, start: 'top 72%' },
+    });
+  }());
 
   /* ─────────────────────────────────────────────
      MARKETS — section reveal

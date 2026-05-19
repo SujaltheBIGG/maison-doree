@@ -279,6 +279,39 @@
     </div>
   </section>
 
+  <!-- HUB MAP -->
+  <section class="hub-map" id="hub-map">
+    <div class="hub-map__inner" id="hub-map-inner">
+      <img src="hub-map.png" alt="Global Reach" class="hub-map__img" id="hub-map-img">
+
+      <video class="hub-map__vid" id="hmv-paris"   src="hub-paris.mp4"   muted loop playsinline></video>
+      <video class="hub-map__vid" id="hmv-dubai"   src="hub-dubai.mp4"   muted loop playsinline></video>
+      <video class="hub-map__vid" id="hmv-newyork" src="hub-newyork.mp4" muted loop playsinline></video>
+
+      <div class="hub-map__grad"></div>
+
+      <div class="hub-map__info" id="hmi-paris">
+        <p class="hub-map__info-label">Hub 01</p>
+        <h3 class="hub-map__info-name">Paris</h3>
+        <p class="hub-map__info-sub">8&egrave;me Arrondissement &middot; Est. 2006</p>
+      </div>
+      <div class="hub-map__info" id="hmi-dubai">
+        <p class="hub-map__info-label">Hub 02</p>
+        <h3 class="hub-map__info-name">Dubai</h3>
+        <p class="hub-map__info-sub">Palm Jumeirah &middot; Est. 2015</p>
+      </div>
+      <div class="hub-map__info" id="hmi-newyork">
+        <p class="hub-map__info-label">Hub 03</p>
+        <h3 class="hub-map__info-name">New York</h3>
+        <p class="hub-map__info-sub">Manhattan &middot; Est. 2019</p>
+      </div>
+
+      <div class="hub-zone" data-city="paris"   style="left:44%;top:27%;width:11%;height:17%"></div>
+      <div class="hub-zone" data-city="dubai"   style="left:57%;top:39%;width:11%;height:17%"></div>
+      <div class="hub-zone" data-city="newyork" style="left:21%;top:33%;width:14%;height:17%"></div>
+    </div>
+  </section>
+
   <!-- FEATURED RESIDENCES -->
   <section class="residences" id="residences">
     <div class="residences__header">
@@ -504,5 +537,6 @@
 
   <script src="main.js" defer></script>
   <script type="module" src="globe.js"></script>
+  <script src="hub-map.js" defer></script>
 </body>
 </html>

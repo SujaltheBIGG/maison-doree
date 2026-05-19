@@ -265,6 +265,18 @@ img { max-width: 100%; display: block; }
 .globe-label { position: absolute; opacity: 0; transform: translate(-50%, calc(-100% - 11px)); background: rgba(10,8,5,.9); border: 1px solid rgba(184,155,94,.22); color: var(--cream); font-family: var(--font-sans); font-size: .56rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; padding: 4px 10px 3px; white-space: nowrap; pointer-events: none; transition: opacity .35s ease; z-index: 4; }
 .globe-label::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 4px solid transparent; border-top-color: rgba(184,155,94,.35); }
 
+/* HUB MAP */
+.hub-map { background: var(--charcoal); padding: 0 0 8rem; overflow: hidden; }
+.hub-map__inner { position: relative; max-width: 1600px; margin: 0 auto; }
+.hub-map__img { width: 100%; height: auto; display: block; transition: opacity .65s ease; will-change: opacity; position: relative; z-index: 1; }
+.hub-map__vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 2; pointer-events: none; transition: opacity .65s ease; }
+.hub-map__grad { position: absolute; inset: 0; z-index: 3; background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 55%); opacity: 0; pointer-events: none; transition: opacity .65s ease; }
+.hub-map__info { position: absolute; bottom: 7%; left: 50%; transform: translateX(-50%); text-align: center; z-index: 4; opacity: 0; pointer-events: none; white-space: nowrap; transition: opacity .45s ease; }
+.hub-map__info-label { font-size: .58rem; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.hub-map__info-name { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; color: var(--cream); line-height: 1; letter-spacing: -0.01em; }
+.hub-map__info-sub { font-size: .62rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-top: 8px; }
+.hub-zone { position: absolute; z-index: 5; cursor: pointer; border-radius: 6px; }
+
 /* KEYFRAMES */
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes scrollPulse { 0%,100% { opacity: .4; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.2); } }

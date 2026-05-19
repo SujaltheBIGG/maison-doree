@@ -272,24 +272,24 @@
       var inner = section.querySelector('.flow-inner');
       if (!inner) return;
 
-      if (!prefersReducedMotion && isDesktop) {
-        // Sections after the first: start at 30° rotation, scrub to 0°
+      if (!prefersReducedMotion) {
+        // Sections after the first: start rotated, scrub to 0°
         if (i > 0) {
-          gsap.set(inner, { rotation: 30, transformOrigin: 'bottom left' });
+          gsap.set(inner, { rotation: isDesktop ? 30 : 15, transformOrigin: 'bottom left' });
           gsap.to(inner, {
             rotation: 0,
             ease: 'none',
             scrollTrigger: {
               trigger: section,
               start: 'top bottom',
-              end: 'top 25%',
+              end: isDesktop ? 'top 25%' : 'top 45%',
               scrub: true,
             },
           });
         }
 
-        // All sections except the last: pin until scrolled past
-        if (i < flowSections.length - 1) {
+        // All sections except the last: pin until scrolled past (desktop only)
+        if (isDesktop && i < flowSections.length - 1) {
           ScrollTrigger.create({
             trigger: section,
             start: 'bottom bottom',

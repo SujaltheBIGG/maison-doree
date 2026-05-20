@@ -523,6 +523,7 @@
       dpr = window.devicePixelRatio || 1;
       var w = container.clientWidth;
       var h = container.clientHeight;
+      cfg.fontSize = Math.min(88, Math.round(w / 6.5));
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       canvas.style.width = w + 'px';

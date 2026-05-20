@@ -15,34 +15,48 @@
 <body>
 
   <!-- NAVBAR -->
-  <nav class="navbar" id="navbar" aria-label="Main navigation">
-    <a href="#" class="navbar__logo">Maison <span class="navbar__logo-accent">Dor&eacute;e</span></a>
-    <div class="navbar__links">
-      <a href="#about" class="navbar__link">About</a>
-      <a href="#residences" class="navbar__link">Residences</a>
-      <a href="#services" class="navbar__link">Services</a>
-      <a href="#testimonials" class="navbar__link">Clients</a>
-      <a href="#contact" class="navbar__link">Contact</a>
-    </div>
-    <button class="navbar__hamburger" id="navbar-hamburger" aria-label="Open menu">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
-    </button>
-  </nav>
+  <header class="site-nav" id="site-nav">
+    <div class="site-nav__bar">
 
-  <!-- MOBILE MENU -->
-  <div class="mobile-menu" id="mobile-menu">
-    <button class="mobile-menu__close" id="mobile-menu-close" aria-label="Close menu">
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-    <nav class="mobile-menu__nav">
-      <a href="#about" class="mobile-menu__link">About</a>
-      <a href="#residences" class="mobile-menu__link">Residences</a>
-      <a href="#services" class="mobile-menu__link">Services</a>
-      <a href="#testimonials" class="mobile-menu__link">Clients</a>
-      <a href="#contact" class="mobile-menu__link">Contact</a>
-      <a href="#contact" class="mobile-menu__cta">Private Consultation</a>
-    </nav>
-  </div>
+      <a href="#hero" class="site-nav__logo">Maison <span class="site-nav__logo-accent">Dor&eacute;e</span></a>
+
+      <nav class="site-nav__links">
+        <a href="#about" class="site-nav__link"><div class="site-nav__link-inner"><span>About</span><span>About</span></div></a>
+        <a href="#residences" class="site-nav__link"><div class="site-nav__link-inner"><span>Residences</span><span>Residences</span></div></a>
+        <a href="#services" class="site-nav__link"><div class="site-nav__link-inner"><span>Services</span><span>Services</span></div></a>
+        <a href="#contact" class="site-nav__link"><div class="site-nav__link-inner"><span>Contact</span><span>Contact</span></div></a>
+      </nav>
+
+      <div class="site-nav__actions">
+        <div class="site-nav__btn-signup-wrap">
+          <div class="site-nav__btn-signup-glow"></div>
+          <a href="#contact" class="site-nav__btn-signup">Book Private Viewing</a>
+        </div>
+      </div>
+
+      <button class="site-nav__toggle" id="site-nav-toggle" aria-label="Open Menu">
+        <svg class="site-nav__icon-open" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+        <svg class="site-nav__icon-close" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+
+    </div>
+
+    <div class="site-nav__mobile" id="site-nav-mobile">
+      <nav class="site-nav__mobile-nav">
+        <a href="#about" class="site-nav__mobile-link">About</a>
+        <a href="#residences" class="site-nav__mobile-link">Residences</a>
+        <a href="#services" class="site-nav__mobile-link">Services</a>
+        <a href="#contact" class="site-nav__mobile-link">Contact</a>
+      </nav>
+      <div class="site-nav__mobile-actions">
+        <a href="#contact" class="site-nav__btn-signup site-nav__btn-signup--full">Book Private Viewing</a>
+      </div>
+    </div>
+  </header>
 
   <!-- HERO -->
   <section class="hero" id="hero">
@@ -100,46 +114,49 @@
 
       <div class="zoom-parallax__layer" data-zp-idx="0">
         <div class="zoom-parallax__img-wrap">
-          <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=900&q=80" alt="Luxury Parisian residence interior" loading="lazy" decoding="async">
+          <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=3840&q=95" alt="Luxury villa with pool" loading="lazy" decoding="async">
         </div>
       </div>
 
       <div class="zoom-parallax__layer zoom-parallax__layer--mobile-hide" data-zp-idx="1">
         <div class="zoom-parallax__img-wrap zoom-parallax__img-wrap--1">
-          <img src="https://images.unsplash.com/photo-1549638441-b787d2e11f14?w=900&q=80" alt="Parisian boulevard" loading="lazy" decoding="async">
+          <img src="https://images.unsplash.com/photo-1549638441-b787d2e11f14?w=3840&q=95" alt="Parisian boulevard" loading="lazy" decoding="async">
         </div>
       </div>
 
       <div class="zoom-parallax__layer zoom-parallax__layer--mobile-hide" data-zp-idx="2">
         <div class="zoom-parallax__img-wrap zoom-parallax__img-wrap--2">
-          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80" alt="Grand salon" loading="lazy" decoding="async">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=3840&q=95" alt="Grand salon" loading="lazy" decoding="async">
         </div>
       </div>
 
       <div class="zoom-parallax__layer zoom-parallax__layer--mobile-hide" data-zp-idx="3">
         <div class="zoom-parallax__img-wrap zoom-parallax__img-wrap--3">
-          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&q=80" alt="Eiffel Tower residence" loading="lazy" decoding="async">
+          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=3840&q=95" alt="Eiffel Tower residence" loading="lazy" decoding="async">
         </div>
       </div>
 
       <div class="zoom-parallax__layer zoom-parallax__layer--tablet-hide" data-zp-idx="4">
         <div class="zoom-parallax__img-wrap zoom-parallax__img-wrap--4">
-          <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=900&q=80" alt="Estate garden" loading="lazy" decoding="async">
+          <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=3840&q=95" alt="Estate garden" loading="lazy" decoding="async">
         </div>
       </div>
 
       <div class="zoom-parallax__layer zoom-parallax__layer--tablet-hide" data-zp-idx="5">
         <div class="zoom-parallax__img-wrap zoom-parallax__img-wrap--5">
-          <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=900&q=80" alt="Luxury estate exterior" loading="lazy" decoding="async">
+          <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=3840&q=95" alt="Luxury estate exterior" loading="lazy" decoding="async">
         </div>
       </div>
 
       <div class="zoom-parallax__layer zoom-parallax__layer--tablet-hide" data-zp-idx="6">
         <div class="zoom-parallax__img-wrap zoom-parallax__img-wrap--6">
-          <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=900&q=80" alt="Skyline penthouse" loading="lazy" decoding="async">
+          <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=3840&q=95" alt="Skyline penthouse" loading="lazy" decoding="async">
         </div>
       </div>
 
+      <div class="zoom-parallax__text" id="zoom-parallax-text">
+        <p class="zoom-parallax__quote">A residence is not just a place.</p>
+      </div>
     </div>
   </section>
 
@@ -279,9 +296,9 @@
     <div class="hub-map__inner" id="hub-map-inner">
       <img src="hub-map.png" alt="Global Reach" class="hub-map__img" id="hub-map-img" loading="lazy" decoding="async">
 
-      <video class="hub-map__vid" id="hmv-paris"   src="hub-paris.mp4"   muted loop playsinline preload="none"></video>
-      <video class="hub-map__vid" id="hmv-dubai"   src="hub-dubai.mp4"   muted loop playsinline preload="none"></video>
-      <video class="hub-map__vid" id="hmv-newyork" src="hub-newyork.mp4" muted loop playsinline preload="none"></video>
+      <video class="hub-map__vid" id="hmv-paris"   src="hub-paris.mp4"   muted loop playsinline preload="metadata"></video>
+      <video class="hub-map__vid" id="hmv-dubai"   src="hub-dubai.mp4"   muted loop playsinline preload="metadata"></video>
+      <video class="hub-map__vid" id="hmv-newyork" src="hub-newyork.mp4" muted loop playsinline preload="metadata"></video>
 
       <div class="hub-map__grad"></div>
 

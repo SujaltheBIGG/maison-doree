@@ -17,7 +17,7 @@
     var target = document.querySelector(href);
     if (!target) return;
     e.preventDefault();
-    var navHeight = (document.querySelector('.navbar') || {}).offsetHeight || 64;
+    var navHeight = (document.querySelector('.site-nav') || {}).offsetHeight || 64;
     if (lenis) {
       lenis.scrollTo(target, {
         offset: -navHeight,
@@ -29,10 +29,21 @@
       window.scrollTo({ top: top, behavior: 'smooth' });
     }
     // Close mobile menu if open
-    var mobileMenu = document.getElementById('mobile-menu');
-    if (mobileMenu && mobileMenu.classList.contains('open')) {
-      mobileMenu.classList.remove('open');
-      document.body.style.overflow = '';
+    var siteNav = document.getElementById('site-nav');
+    if (siteNav && siteNav.classList.contains('site-nav--open')) {
+      siteNav.classList.remove('site-nav--open');
+      var iconOpen  = document.querySelector('.site-nav__icon-open');
+      var iconClose = document.querySelector('.site-nav__icon-close');
+      if (iconOpen)  iconOpen.style.display  = '';
+      if (iconClose) iconClose.style.display = 'none';
+      var toggle = document.getElementById('site-nav-toggle');
+      if (toggle) toggle.setAttribute('aria-label', 'Open Menu');
+      clearTimeout(siteNav._shapeTimer);
+      siteNav._shapeTimer = setTimeout(function () {
+        if (!siteNav.classList.contains('site-nav--open')) {
+          siteNav.style.borderRadius = '';
+        }
+      }, 300);
     }
   });
 
@@ -45,35 +56,6 @@
   // Global defaults — everything feels the same
   var EASE = 'power3.out';
   var DUR  = 1;
-
-  /* ─────────────────────────────────────────────
-     NAVBAR
-     ───────────────────────────────────────────── */
-  var navbar = document.getElementById('navbar');
-  var mobileMenu = document.getElementById('mobile-menu');
-  var mobileCloseBtn = document.getElementById('mobile-menu-close');
-  var hamburger = document.getElementById('navbar-hamburger');
-
-  function openMobileMenu() {
-    mobileMenu.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    if (lenis) lenis.stop();
-  }
-  function closeMobileMenu() {
-    mobileMenu.classList.remove('active');
-    document.body.style.overflow = '';
-    if (lenis) lenis.start();
-  }
-
-  window.addEventListener('scroll', function () {
-    if (window.scrollY > 60) {
-      navbar.classList.add('navbar--scrolled');
-    } else {
-      navbar.classList.remove('navbar--scrolled');
-    }
-  }, { passive: true });
-
-  if (hamburger) hamburger.addEventListener('click', openMobileMenu);
 
   /* ─────────────────────────────────────────────
      HERO — entrance timeline + parallax
@@ -212,6 +194,7 @@
 
     var scaleEnds = [4, 5, 6, 5, 6, 8, 9];
     var layers = Array.from(section.querySelectorAll('.zoom-parallax__layer'));
+    var textEl = document.getElementById('zoom-parallax-text');
     var isMobile = window.innerWidth <= 768;
     // Pin the section and create extra scroll distance so the zoom plays out
     // over 2× the viewport height (mobile) or 3× (desktop), matching the
@@ -230,6 +213,10 @@
           var end = scaleEnds[i] !== undefined ? scaleEnds[i] : 4;
           gsap.set(layer, { scale: 1 + (end - 1) * p });
         });
+        if (textEl) {
+          var textOp = p < 0.75 ? 0 : (p - 0.75) / 0.25;
+          gsap.set(textEl, { opacity: textOp });
+        }
       },
     });
   }());
@@ -476,16 +463,6 @@
     });
   });
 
-  /* ─────────────────────────────────────────────
-     MOBILE MENU — close handlers
-     ───────────────────────────────────────────── */
-  if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMobileMenu);
-  mobileMenu.querySelectorAll('.mobile-menu__link, .mobile-menu__cta').forEach(function (link) {
-    link.addEventListener('click', closeMobileMenu);
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && mobileMenu.classList.contains('active')) closeMobileMenu();
-  });
 
   /* ─────────────────────────────────────────────
      CAROUSEL
@@ -653,5 +630,52 @@
   }
 
   window.addEventListener('load', function () { ScrollTrigger.refresh(); }, { once: true });
+
+  /* ─────────────────────────────────────────────
+     SITE NAVBAR — mobile toggle
+     ───────────────────────────────────────────── */
+  (function () {
+    var nav    = document.getElementById('site-nav');
+    var toggle = document.getElementById('site-nav-toggle');
+    if (!nav || !toggle) return;
+
+    var iconOpen  = toggle.querySelector('.site-nav__icon-open');
+    var iconClose = toggle.querySelector('.site-nav__icon-close');
+    var shapeTimer = null;
+
+    window.addEventListener('scroll', function () {
+      if (nav) {
+        if (window.scrollY > 60) {
+          nav.classList.add('navbar--scrolled');
+        } else {
+          nav.classList.remove('navbar--scrolled');
+        }
+      }
+    }, { passive: true });
+
+    toggle.addEventListener('click', function () {
+      var isOpen = nav.classList.contains('site-nav--open');
+
+      if (isOpen) {
+        nav.classList.remove('site-nav--open');
+        iconOpen.style.display  = '';
+        iconClose.style.display = 'none';
+        toggle.setAttribute('aria-label', 'Open Menu');
+        clearTimeout(shapeTimer);
+        shapeTimer = setTimeout(function () {
+          if (!nav.classList.contains('site-nav--open')) {
+            nav.style.borderRadius = '';
+          }
+        }, 300);
+      } else {
+        clearTimeout(shapeTimer);
+        nav.style.borderRadius = '12px';
+        nav.classList.add('site-nav--open');
+        iconOpen.style.display  = 'none';
+        iconClose.style.display = '';
+        toggle.setAttribute('aria-label', 'Close Menu');
+      }
+    });
+  }());
 
 })();
